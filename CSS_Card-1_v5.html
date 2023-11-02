@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>CSS Card-1</title>
+    <style>
+* {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	box-sizing: border-box;
+	transition: 0.2s;
+}
+
+body {
+	background: linear-gradient(to right, #8e9eab, #eef2f3);
+	height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-family: Arial, Helvetica, sans-serif;
+	letter-spacing: .03em;
+}
+
+i {
+	letter-spacing: 0;
+}
+
+.item {
+	width: 400px;
+	height: 500px;
+	background: #fff;
+	position: relative;
+	box-shadow: -15px 7px 30px rgba(0, 0, 0, 0.2);
+	overflow: hidden;
+	border-radius: 10px;
+}
+
+.item .img {
+	width: 100%;
+	height: 50%;
+	background: black;
+	border-radius: 10px 10px 0 0;
+	position: absolute;
+	z-index: 5;
+	overflow: hidden;
+}
+
+.item .img-content {
+	width: 100%;
+	height: 100%;
+	transition: 0 !important;
+	background-image: url(https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/26th_Tokyo_International_Film_Festival-_Tom_Hanks_from_Captain_Phillips_%2814970103713%29.jpg/640px-26th_Tokyo_International_Film_Festival-_Tom_Hanks_from_Captain_Phillips_%2814970103713%29.jpg);
+	background-size: cover;
+	background-position: top center;
+	background-repeat: no-repeat;
+}
+
+.item.showfull .text-container {
+	height: 90%;
+}
+
+.item.showfull .content {
+	height: 78%;
+}
+
+.item.showfull .img-content {
+	transform: scale(1.04);
+	filter: blur(5px);
+}
+
+.item .text-container {
+	width: 100%;
+	height: 55%;
+	background: #fff;
+	border-radius: 10px;
+	position: absolute;
+	bottom: 0;
+	z-index: 10;
+	box-shadow: -3px -10px 10px rgba(0, 0, 0, 0.3);
+	overflow: hidden;
+	padding: 30px 20px 20px 20px;
+	display: flex;
+	flex-direction: column;
+}
+
+.item .content {
+	height: 53%;
+	margin-bottom: 10px;
+	overflow: hidden;
+}
+
+.item h2 {
+	margin-bottom: 10px;
+	margin-top: 10px;
+}
+
+.item .readmore {
+	display: flex;
+	padding-bottom: 5px;
+}
+
+.item .readmore h3 {
+	display: block;
+	padding: 10px 15px;
+	border-radius: 40px;
+	border: 1px solid;
+	cursor: pointer;
+	font-size: 10px;
+	margin-bottom: 5px;
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="item-list">
+          <div class="item item-1">
+            <div class="img">
+                <div class="like"><i class="fa fa-heart" aria-hidden="true"></i></div></a>
+            <div class="img-content"></div>
+            </div>
+            <div class="text-container">
+              <h2 class="title">Tom Hanks</h2>
+              <div class="content">
+                <p>This is a <a href="http://www.google.com" target="_blank">link</a>. This is not a link. This is not a link. This is not a link. This is not a link. This is not a link. This is not a link. This is not a link. This is not a link. This is not a link. This is not a link. This is not a link. This is not a link. This is not a link. This is not a link. This is not a link. This is not a link. This is not a link. This is not a link. This is not a link. This is not a link. This is not a link. This is not a link. This is not a link. THIS IS THE LAST LINE!</p>
+              </div>
+              <div class="readmore">
+                <h3>Show more</h3>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+<script>
+	document.addEventListener("DOMContentLoaded", function () {
+  var content = document.querySelector(".content");
+  var readMoreButton = document.querySelector(".readmore h3");
+  var item = document.querySelector(".item");
+  var wordsLimit = 70;
+  var originalContent = content.innerHTML;
+
+  readMoreButton.addEventListener("click", function () {
+    if (readMoreButton.textContent === "Show more") {
+      content.innerHTML = originalContent;
+      item.classList.add("showfull");
+      readMoreButton.textContent = "Show less";
+    } else {
+      content.innerHTML = getLimitedContent(originalContent, wordsLimit);
+      item.classList.remove("showfull");
+      readMoreButton.textContent = "Show more";
+    }
+  });
+
+  if (wordCount(originalContent) > wordsLimit) {
+    content.innerHTML = getLimitedContent(originalContent, wordsLimit);
+  }
+});
+
+function wordCount(text) {
+  return text.split(" ").length;
+}
+
+function getLimitedContent(content, limit) {
+  var words = content.split(" ");
+  if (words.length > limit) {
+    var limitedWords = words.slice(0, limit);
+    return limitedWords.join(" ") + "...";
+  }
+  return content;
+}
+
+</script>
+	 
+	 
+	 
+	 
+	 <!-- <script>
+        document.addEventListener("DOMContentLoaded", function () {
+          var content = document.querySelector(".content a");
+          var readMoreButton = document.querySelector(".readmore h3");
+          var item = document.querySelector(".item");
+          var getTxt = content.textContent;
+          var realTxt = [getTxt];
+          var textCol = [getTxt];
+          var wordsCount = textCol[0].split(" ").length;
+          var words = textCol[0].split(" ");
+		  var wordsLimit = 70;
+          var limitCol;
+    
+          readMoreButton.addEventListener("click", function () {
+            if (readMoreButton.textContent === "Show more") {
+              content.textContent = realTxt.join(" ");
+              item.classList.add("showfull");
+              readMoreButton.textContent = "Show less";
+            } else {
+              content.textContent = limitCol;
+              item.classList.remove("showfull");
+              readMoreButton.textContent = "Show more";
+            }
+          });
+    
+          if (wordsLimit <= wordsCount) {
+            words.splice(wordsLimit, wordsCount - wordsLimit);
+            words = words.join(" ");
+            content.textContent = words + "...";
+            limitCol = content.textContent;
+          }
+        });
+      </script> -->
+</body>
+</html>
